@@ -1,5 +1,5 @@
-[Command: python -u /Users/ivanmac/Desktop/Kaggle/Titanic/GP_Titanic.py]
-/Users/ivanmac/Desktop/Kaggle/Titanic/GP_Titanic.py:77: RuntimeWarning: overflow encountered in exp
+[Command: python -u .../Kaggle/Titanic/GP_Titanic.py]
+.../Kaggle/Titanic/GP_Titanic.py:77: RuntimeWarning: overflow encountered in exp
   return math.fsum(np.round(1.-(1./(1.+np.exp(-func(*in_))))) == out for in_, out in zip(inputs, outputs)) / len(evolved_train),
 										 fitness                         	              size
 				 --------------------------------------------------------	-------------------------------
@@ -107,3 +107,10 @@ gen	nevals	avg     	max     	min     	std     	avg    	max	min	std
 100	248   	0.824673	0.843996	0.395062	0.034168 	151.183	212	37 	28.0564
 0.843995510662
 [Finished in 458.705s]
+
+sub(min(x2, min(max(max(cos(min(min(cos(x6), max(x2, x7)), x1)), max(max(cos(cos(x5)), max(min(add(-1.4745580582401896, x7), 
+max(x2, x8)), sin(cos(-1.4745580582401896)))), cos(x1))), cos(x6)), max(min(-1.4745580582401896, max(min(min(-1.4745580582401896, 
+max(min(x2, protectedDiv(sub(sin(protectedDiv(x1, x5)), x8), min(x8, x2))), x2)), max(cos(cos(x5)), max(cos(cos(x5)), 
+max(min(add(sub(add(x4, x6), tanh(x3)), x7), max(max(x4, sin(x6)), add(x2, x4))), sin(x6))))), cos(x5))), cos(add(-1.4745580582401896, 
+x7))))), cos(min(add(-1.4745580582401896, x7), x1)))
+
