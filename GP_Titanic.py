@@ -22,7 +22,7 @@ def GP_deap(evolved_train):
 	from deap import gp
 
 
-	inputs = evolved_train.iloc[:,2:10].values.tolist() #create np.array of rows of columns
+	inputs = evolved_train.iloc[:,2:10].values.tolist() 
 	outputs = evolved_train['Survived'].values.tolist()
 
 
@@ -34,7 +34,7 @@ def GP_deap(evolved_train):
 
 
 	#choosing Primitives
-	pset = gp.PrimitiveSet("MAIN", 8) # eight inputs
+	pset = gp.PrimitiveSet("MAIN", 8) 
 	pset.addPrimitive(operator.add, 2)
 	pset.addPrimitive(operator.sub, 2)
 	pset.addPrimitive(operator.mul, 2)
@@ -86,8 +86,6 @@ def GP_deap(evolved_train):
 	toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))
 	toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))
 
-	#random.seed(318)
-
 	pop = toolbox.population(n=300)
 	hof = tools.HallOfFame(1)
 
@@ -104,7 +102,6 @@ def GP_deap(evolved_train):
 	pop, log = algorithms.eaSimple(pop, toolbox, cxpb=0.7, mutpb=0.3, ngen=100, stats=stats,
 								   halloffame=hof, verbose=True)
 
-
 	#Parameters:
 	#population – A list of individuals.
 	#toolbox – A Toolbox that contains the evolution operators.
@@ -115,8 +112,8 @@ def GP_deap(evolved_train):
 	#halloffame – A HallOfFame object that will contain the best individuals, optional.
 	#verbose – Whether or not to log the statistics.
 
-	# Transform the tree expression of hof[0] in a callable function
-	func2 = toolbox.compile(expr=hof[0]) #func2 is a <function <lambda>
+	# Transform the tree expression of hof[0] in a callable function and return it
+	func2 = toolbox.compile(expr=hof[0]) 
 
 	return func2
 
@@ -138,10 +135,9 @@ def MungeData(data):
 				return title
 
 	data['Title'] = data.Name.apply(replace_names_titles)
-	data['Title'] = data.Title.map({
-											'Dr':1, 'Mr':2, 'Master':3, 'Miss':4, 'Major':5, 'Rev':6, 'Mrs':7, 'Ms':8, 'Mlle':9,
-											'Col':10, 'Capt':11, 'Mme':12, 'Countess':13, 'Don': 14, 'Jonkheer':15
-											})
+	data['Title'] = data.Title.map({ 'Dr':1, 'Mr':2, 'Master':3, 'Miss':4, 'Major':5, 'Rev':6, 'Mrs':7, 'Ms':8, 'Mlle':9,
+					 'Col':10, 'Capt':11, 'Mme':12, 'Countess':13, 'Don': 14, 'Jonkheer':15
+					})
 
 	data.drop(['Name'], 1, inplace=True)
 
@@ -186,7 +182,7 @@ if __name__ == "__main__":
 	evolved_train = MungeData(train)
 	evolved_test = MungeData(test)
 
-	#GP
+	#GF
 	GeneticFunction = GP_deap(evolved_train)
 
 	#train
@@ -194,10 +190,10 @@ if __name__ == "__main__":
 	# Evaluate the accuracy of h[0] on train set
 	trainPredictions = Outputs(np.array([GeneticFunction(*x) for x in train]))
 
-	pdtrain = pd.DataFrame({'PassengerId': evolved_train.PassengerId.astype(int),
+	pd_train = pd.DataFrame({'PassengerId': evolved_train.PassengerId.astype(int),
 							'Predicted': trainPredictions.astype(int),
 							'Survived': evolved_train.Survived.astype(int)})
-	pdtrain.to_csv('gptrain.csv', index=False)
+	pd_train.to_csv('gptrain.csv', index=False)
 
 	print(accuracy_score(evolved_train.Survived.astype(int),trainPredictions.astype(int)))
 
@@ -206,6 +202,6 @@ if __name__ == "__main__":
 	# Evaluate the accuracy of h[0] on test set
 	testPredictions = Outputs(np.array([GeneticFunction(*x) for x in test]))
 
-	pdtest = pd.DataFrame({'PassengerId': evolved_test.PassengerId.astype(int),
+	pd_test = pd.DataFrame({'PassengerId': evolved_test.PassengerId.astype(int),
 							'Survived': testPredictions.astype(int)})
-	pdtest.to_csv('gptest.csv', index=False)
+	pd_test.to_csv('gptest.csv', index=False)
