@@ -1,5 +1,3 @@
-#https://github.com/DEAP/deap/blob/043862cc70c210f3ea6f61115442685cb3280e07/examples/gp/symbreg.py
-
 import numpy as np
 import pandas as pd
 from sklearn.metrics import accuracy_score
